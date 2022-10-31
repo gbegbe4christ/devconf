@@ -1,0 +1,45 @@
+{% extends "admin/adminlayout.html"%}
+{% set msg = get_flashed_messages()%}
+{%block content%}
+{{regs.mystate}}
+         {% if msg %}
+            {% for message in msg %}
+               <div class="alert alert-success">{{message}}</div>
+            {% endfor %}
+         {% endif %}
+          <table class="table table-dark table-hover">
+            <tr>
+              <th>S/N</th>
+              <th>Fullname</th>
+              <th>Phone Number</th>
+              <th>States</th>
+              <th>Email</th>
+              <th>Action</th>
+            </tr>
+            {% if regs %}
+              {% for user in regs %}
+              <tr>
+                <td>{{loop.index}}</td>
+                <td>{{user.user_fname}} {{ user.user_lname}}</td>
+                <td>{{user.user_phone}}</td>
+                <td>{{user.mystate.state_name}}</td>
+                <td>{{user.user_email}}</td>
+                <td><a href="/admin/details/{{user.user_id}}">Details</a> | <a href="/admin/delete/{{user.user_id}}" onclick="
+    
+                return confirm('Are you sure you want to delete This user?')">Delete User</a></td>
+              </tr>
+              {%endfor%}
+              {% else %}
+              <tr>
+                <td colspan="4">No Users Found</td>
+              </tr>
+            {% endif %}
+          </table>
+          <div>
+            
+          </div>
+        {%endblock%}
+
+        {%block header%}
+          All Registered Users
+        {%endblock%}

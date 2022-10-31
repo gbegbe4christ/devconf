@@ -1,0 +1,78 @@
+{% extends "layout.html"%}
+{% set msg = get_flashed_messages()%}
+{% block content %}
+<form action="{{url_for('update_profile')}}" method="post" class="justify-content-center me-5" enctype="multipart/form-data">
+   <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+   {% for m in messages %}
+      {{ m }}
+   {% endfor %}
+   <div >
+      <label class="form-label mt-2">Upload Picture</label>
+     <input type="file" " name="pic" class="col-lg-6 mb-lg-3 form-control">
+     
+   </div>
+   <div >
+      <label class="form-label mt-2">First Name</label>
+     <input class="form-control" type="text" placeholder="First Name" name="fname" class="col-lg-10 mb-lg-3 ms-lg-3 " value="{{details.user_fname}}">
+   </div>
+   <div>
+      <label class="form-label mt-2">Last Name</label>
+     <input class="form-control" type="text"  name="lname" class="col-lg-10 mb-lg-3 ms-lg-3" value="{{details.user_lname}}">
+   </div>
+   <div >
+      <label class="form-label mt-2">State</label>
+     <select name ='state' class="form-control" id="state">
+      {% if states%}
+         {% for i in states%}
+            <option value="{{i.state_id}}">{{i.state_name}}</option>
+         {% endfor %}
+      {% endif %}
+     </select>
+   </div>
+   <div class="row">
+      <div class="col">
+         <label class="form-label mt-2" name="lga">LGA</label>
+         <div class="col-md-8" >
+            <select name ='lgas' class="form-control" id="lgas">
+               
+            </select>
+         </div>
+      </div>
+   </div>
+   
+  <div >
+      <label>Phone Number</label>
+     <input class="form-control" type="text" placeholder="phone" name="phone" class="col-lg-6 mb-lg-3 ms-lg-3 ">
+     <div>
+  <div>
+   <div>
+     <button type="submit" class=" btn col-lg-10 ms-lg-3 mb-lg-3">Update</button>
+   </div>
+</form> 
+{% endblock %}
+{% block header%}
+   Update Profile     
+{% endblock %}
+{% block customjs %}
+<script type="text/javascript">
+   $("document").ready(function(){
+      $("#state").change(function(){
+         var selected_state = $(this).val()
+         var data2send = {"state":selected_state}
+         $.ajax({
+         url:"{{url_for('getlga')}}",
+         type:"get",
+         dataType: "text",
+         data: data2send,
+         success: function(msg){
+            $("#lgas").html(msg)
+         },
+         error: function(err){
+            console.log(err)
+         }
+      })
+      })
+   })
+   
+</script>
+{% endblock %}

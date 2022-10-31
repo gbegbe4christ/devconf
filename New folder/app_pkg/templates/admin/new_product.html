@@ -1,0 +1,32 @@
+{% extends "admin/adminlayout.html" %}
+{% set m = get_flashed_messages() %}
+        {%block header%}
+
+        {%endblock%}
+
+        {%block content%}
+         {% if m %}
+            {% for message in m%}
+               <div class="alert alert-success">{{message}}</div>
+            {% endfor %}
+         {% endif %}
+        <form method="post" action="{{url_for('new_product')}}">
+         <div class="row justify-content-center">
+         <div class="col-md-7">
+         {{frm.item_name.label}}
+
+         {{frm.item_name (class_="form-control",value="")}}
+        </div>
+        {{ frm.csrf_token }}
+        
+        <div class="col-md-7">
+         {{frm.item_price.label}}
+
+         {{frm.item_price (class_="form-control",value="")}}
+         </div>
+         {{frm.submit (class_="btn btn-warning col-md-7 mt-3")}}
+         </div>
+         </form>
+        {%endblock%}
+
+

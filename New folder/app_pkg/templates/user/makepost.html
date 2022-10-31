@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+{% set msg = get_flashed_messages() %}
+{% block header%}
+        
+{% endblock %}
+
+{% block content%}
+{% if msg %}
+   {{msg}}
+{% endif %}
+<div class="container">
+
+ <div class="row">
+    <div class="col">
+      <h1 class="mb-5">Make A Post</h1>
+       <form method="post" action="/makepost/" >
+         <div class="col-md-7">
+            {{form.title.label}}
+            {{form.title (class_="form-control",value="")}}
+           </div>
+           {{ form.csrf_token }}
+           
+           <div class="col-md-7">
+            {{form.content.label}}
+   
+            {{form.content (class_="form-control",value="")}}
+            </div>
+            {{form.submit (class_="btn btn-success col-md-7 mt-3", onclick="validate()")}}
+            </div>
+            </form>
+      </form>
+    </div>
+ </div>
+
+
+</div>
+<script type="text/javascript">
+   function validate(e){
+      var title = document.getElementById("title").value
+      var content = document.getElementById("content").value
+
+      if(title==""|| content==""){
+         alert("Please complete your post.");
+         e.preventDefault()
+      }
+   }
+</script>
+{% endblock content%}

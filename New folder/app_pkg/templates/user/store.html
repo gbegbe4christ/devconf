@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% block content %}
+          <form method="post" action="{{url_for('store')}}">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <table class="table table-dark table-hover">
+            <tr>
+              <th id="selectall">Select All</th>
+              <th>Product</th>
+              <th>Price(Naira)</th>
+            </tr>
+            {% if all_products%}
+              {% for p in all_products%}
+              <tr>
+                <td><input type="checkbox" name="productid" value="{{p.product_id}}"></td>
+                <td>{{p.product_name}}</td>
+                <td>{{p.product_price}}</td>
+              </tr>
+              {%endfor%}
+              {% else %}
+              <tr>
+                <td colspan="4">No Product Found</td>
+              </tr>
+            {% endif %}
+          </table>
+          <button class="btn btn-success mb-2">Buy</button>
+          </form>
+{%endblock%}

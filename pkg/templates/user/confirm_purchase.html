@@ -1,0 +1,13 @@
+{% extends 'user/layout.html' %} {% set total = [] %} {% block header%} Confirm Purchases {% endblock %} {% block content%} 
+S/N
+Item Name
+Price
+{% for d in data%} {{ total.append(d.proddeets.product_price) }} 
+{{ loop.index }}
+{{ d.proddeets.product_name}} 
+{{ d.proddeets.product_price}}
+{%endfor%} 
+TOTAL
+{{ total|sum() }}
+Yes, I'm In! 
+{% endblock content%}

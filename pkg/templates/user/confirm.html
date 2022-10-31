@@ -1,0 +1,48 @@
+ {% extends 'user/layout.html'%}
+ 
+
+ {% block header%}
+ confirm Purchases
+ {%endblock%}
+
+
+{% block content %}
+<div class="container">
+<div class="row">
+    <div class="col">
+        <form method="post" action="/paystack_step1">
+
+        
+    
+        <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+
+        <table class="table table-striped">
+            <tr>
+    <th>s/n</th>
+    <th>Item name</th>
+    <th>Price</th>
+
+
+            </tr>
+            {% set total = [] %} 
+            {% for d in data %}
+            {{ total.append(d.proddeets.product_price) }} 
+            <tr>
+
+                <td>{{ loop.index }}</td>
+                <td>{{d.proddeets.product_name}}</td>
+                <td>{{d.proddeets.product_price}}</td>
+            </tr>
+            {%endfor%}
+            <tr>
+                <td>TOTAL</td><td colspan="2" align="right">{{ total|sum() }}</td>
+            </tr>
+
+
+
+        </table>
+<button class="btn btn-warning">yes i'm in</button>
+</form>
+
+  
+{% endblock content%}

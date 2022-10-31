@@ -1,0 +1,48 @@
+{% extends 'admin/adminlayout.html'%}
+
+{% block header %}
+    All Registration
+{%endblock%}
+{% block content%}
+<div class="container">
+
+<div class="row">
+<div class="col-md-10">
+
+<table class="table table-striped">
+
+<tr>
+<th>serial</th> 
+<th>Fullname</th>
+<th>Phone</th> 
+<th>Email</th>
+<th>Action</th>
+
+</tr>
+{{regs1}}
+{% if regs1%}
+{% for regs,y in regs1%}
+<tr>
+<td>{{loop.index}}</td>
+<td>{{regs.user_lname}}</td>
+<td>{{regs.user_phone}}</td>
+<td>{{regs.user_email}}</td>
+<td> <a href='#'>Details</a>  <a href ='/admin/delete/{ regs.user_id}' onclick="return confirm('are you sure you want to delete this user?')">Delete  </a></a></td>
+
+
+</tr>
+{%endfor %}
+{% endif%}
+
+
+
+
+</table>
+</div>
+
+</div>
+
+
+</div>
+
+{%endblock %}

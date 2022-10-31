@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link href = "/static/bootstrap/css/bootstrap.css" rel = "stylesheet">
+   <link href = "/staict/fontawesome/css/all.css" rel = "stylesheet">
+   <title>Moat DevFest 2022</title>
+</head>
+<body>
+
+  <div class="container">
+<div class="row">
+<div class="col-lg-7">
+<form action="" method="post"> 
+  <input type="hidden" name="csrf_token" value="{{csrf_token() }}">
+
+<label>Firtname</label>
+<input type="text" name="fname" class="form-control">
+
+<label>lastname</label>
+<input type="text" name="lname" class="form-control">
+
+<label>Email</label>
+<input type="text" name="email" class="form-control">
+
+<label>Password</label>
+<input type="password" name="pwd" class="form-control">
+
+<button class="btn btn-primary">signup</button>
+
+</form>
+
+</div>
+
+</div>
+
+
+  </div>  
+</body>
+</html>

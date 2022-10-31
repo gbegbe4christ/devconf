@@ -1,0 +1,95 @@
+{% extends 'user/layout.html'%}
+
+
+{% block header%}
+        edit user profile
+{% endblock %}
+
+
+{% block content%}
+<form action="" method="post" enctype="multipart/form-data"> 
+
+    <input type="hidden" name="csrf_token" value="{{csrf_token() }}">
+
+    <label>fisrtname</label>
+    <input type="text" value="{{deets.user_fname}}"name="fname" class="form-control">
+    
+    <label>lastname</label>
+    <input type="text"value="{{deets.user_lname}}" name="lname" class="form-control">
+<label>upload</label><br>
+    <input type="file" name="pix"><br>
+
+    <label>state</label>
+
+    
+    {% if states%}
+    
+    <select id="state">
+        {% for s in states %}
+        <option  value="{{s.state_id}}">{{s.state_name}}</option>
+        
+        {%endfor%}
+        {% endif%}
+
+    </select><br>
+<div class="row">
+<label>LGA</label>
+<div class="col-8" >
+<select class="form-control"id="lgas"></select>
+
+</div>
+
+</div>
+
+
+
+    <label>phone</label>
+    <input type="text"  value="{{deets.user_phone}}"name="lname" class="form-control">
+    
+    <button class="btn btn-primary" class="form-control">update</button>
+    
+    </form>
+
+{% endblock content%}
+
+{% block customjs %}
+<script type="text/javascript" ></script>
+<script type="text/javascript" src="/static/jquery.min.js"></script>
+<script>
+
+
+$(document).ready(function(){
+
+    $('#state').change(function(){
+        var selected_state = $(this).val()
+        var data2send = {"stateid":selected_state}
+        $.ajax({
+            url:"/getlga",
+            type:"get",
+            data:data2send,
+            datatype:"text",
+            success:function(msg){
+
+                $('#lgas').html(msg)
+            },
+            error:function(err){
+                console.log(err)
+            },
+            beforeSend:function(){
+
+            }
+        })
+
+
+    })
+})
+
+
+
+
+</script>
+
+
+
+
+{% endblock%}

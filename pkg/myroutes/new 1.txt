@@ -1,0 +1,5 @@
+<label>Music Title</label>
+<input type="text" name="musictitle" class="form-control">
+
+<lable>Music description</lable>
+<textarea class="col-12" name="textme"></textarea>

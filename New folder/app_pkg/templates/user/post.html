@@ -1,0 +1,90 @@
+{% extends"layout.html" %}
+        {% block header%}
+        
+        {% endblock %}
+      
+     {% block content%}
+      <div class="container">
+         <div class="row bg-dark text-light me-5 p-2 mt-5" style="box-shadow: 0 0 5px grey">
+            <div class="col">
+               <h2>{{post.post_title}}</h2>
+               <p>Post Description</p>
+               <p>
+                  <p>{{post.post_content}}</p>
+                  <p>Posted by: {{post.postuser.user_fname}} {{post.postuser.user_lname}}</p>
+                  <p>{{post.post_date}}</p>
+                  {% if post.mycomments|count() == 1 %}
+                  <i>({{post.mycomments|count()}} Comment)</i>
+                  {% else %}
+                  <i>({{post.mycomments|count()}} Comments)</i>
+                  {%endif%}
+               </p>
+               <hr>
+            </div>
+            <h2 class="mb-5  btn btn-warning" id="commentsbtn">View Comments</h2>
+            <div id="allcomments">
+            {% if comments %}
+               
+                  {% for comment in comments %}
+                  <hr>
+                  <p>{{comment.comment_content}}</p>
+                  <p>Posted by: {{comment.commentuser.user_fname}} {{comment.commentuser.user_lname}}</p>
+                  <p>{{comment.comment_date}}</p>
+                  {% endfor %}
+                  <hr>
+            {%else%}
+                  <hr>
+                  <p>No comment found</p>
+                  <hr>
+            {% endif %}
+            </div>
+            <hr>
+            <div>
+               <form method="post" id="commentform">
+               <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+               <textarea name="comment" id="comment" class="form-control mb-2"></textarea>
+               <button type="button" class="btn btn-warning mb-3" id="commentbtn">Comment</button>
+               </form>
+            </div> 
+         </div>
+      </div>
+     {% endblock content%}
+     {% block customjs %}
+<script type="text/javascript">
+   $("document").ready(function(){
+      $("#allcomments").hide()
+
+      $("#commentsbtn").click(function(){
+      if($("#allcomments").hide()){
+         $("#allcomments").show()
+      }
+        
+      })
+   })
+
+   $("#commentbtn").click(function(){
+      var data2send = $("#commentform").serialize()
+      $.ajax({
+      url:"/post/{{post.post_id}}",
+      data:data2send,
+      type:"post",
+      dataType: "json",
+      beforeSend:function(){
+         $("#commentbtn").html("Please wait...")
+      },
+      success:function(response){
+         alert(response);
+         $("#comment").val("")
+         $("#commentbtn").html("Comment")
+         $("#allcomments").append("<hr><p>"+respose["comment"]+"</p><p>Posted by:"+"</p><p>{{comment.comment_date}}</p>{% endfor %}<hr>")
+      },
+      error:function(err){
+         console.log(err)
+      }
+   })
+   })
+
+   
+   
+</script>
+{% endblock %}

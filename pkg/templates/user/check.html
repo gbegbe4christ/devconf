@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.css">
+    <title>Check Email</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row pt-5 mt-5">
+            <div class="col-6">
+                <div class="row mb-3">                   
+                    <input type="text" class="border-danger form-control form-control-lg" id="email"> 
+                    <p class="help small" id="feedback"></p>
+                </div>                
+            </div>
+            <div class="col-6">
+                <div class="row mb-3">                   
+                
+                   <button class="btn btn-lg btn-danger col-4" type="button">Check Email</button>
+                </div>                
+            </div>
+        </div>
+       
+    </div>
+    <script type="text/javascript" src="/static/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('button').click(function(){
+                var username = $('#email').val()
+                
+                var data2send ={"email":username}
+                $.ajax({
+                    url:"/ajax/check_email",
+                    data:data2send,
+                    type:'post',
+                    success:function(serverRsp){
+                        $('#feedback').html(serverRsp)
+                    },
+                    error:function(error){
+                        console.log(error)
+                    }
+                })
+
+            })
+        })
+    </script>
+</body>
+</html>

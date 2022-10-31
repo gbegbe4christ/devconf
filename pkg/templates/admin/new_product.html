@@ -1,0 +1,29 @@
+{% extends 'admin/adminlayout.html'%}
+        {%block header%}
+New product
+        {%endblock%}
+      
+{%block content%}
+<div class="container">
+<div class="row">
+<div class="col">
+<form action="" method="post" novalidate>
+{{ frm.item_name.label }}
+{{ frm.item_name(class_='form-control') }}
+
+{{ frm.item_name.errors }}
+
+
+{{ frm.item_price.label }}
+{{ frm.item_price(class_='form-control') }}
+
+{{ frm.item_price.errors }}
+
+{{ frm.csrf_token }}
+
+{{ frm.submit(class_='btn btn-warning')}}
+</form>
+</div>
+</div>
+</div>
+        {%endblock%}

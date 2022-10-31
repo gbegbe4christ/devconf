@@ -1,0 +1,30 @@
+{% extends 'user/layout.html' %}
+
+{% block header%}
+  Store     
+{% endblock %}
+ 
+{% block content%}
+<form action="" method="post">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+<table class="table table-striped">
+  <tr>
+      <th>S/N</th>
+      <th>Item Name</th>
+      <th>Price</th>
+  </tr>
+  
+  
+  {% for d in data %}
+  <tr>
+      <td>{{ loop.index }}</td>
+      <td>{{d.proddeets.product_name}}</td>
+      <td>{{d.proddeets.product_price}}</td>
+  </tr> 
+  {% endfor %}
+</table>
+<button class="btn btn-warning">Confirm</button>
+</form>
+
+{% endblock content%}
+ 

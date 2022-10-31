@@ -1,0 +1,31 @@
+{%extends 'user/layout.html'%}
+
+{% block content%}
+
+    <form method="post" action="">
+        <label>{{postform.title.label}}</label>
+        <div>{{postform.title}}</div>
+
+        <label>{{postform.content.label}}</label>
+        <div>{{postform.content}}</div>
+
+        {{postform.csrf_token }}
+
+        <div>{{postform.submit(onclick="validate(event)")}}</div>
+
+    </form>
+<script type="text/javascripts">
+    function validate(event){
+
+        var ptitle = document.getElementById('title').value
+        var pcontent= document.getElementById('content').value
+        if(ptitle=="" || pcontent==""){
+
+            alert("please complete the form");
+            e.preventDefault()
+        }
+    }
+
+
+</script>
+{% endblock %}
